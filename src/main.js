@@ -1,52 +1,44 @@
-const primaryNav = document.querySelector(".primary-navigation")
-const navToggle = document.querySelectorAll(".nav-toggle")
+import InputHandler from "./input";
+import Player from "./player";
+import Pole from "./poles";
 
-Array.from(navToggle).forEach(btn => btn.addEventListener('click', () => {
-    console.log(primaryNav.style.left);
+window.addEventListener("load", () => {
 
-    if (primaryNav.hasAttribute("data-visible")) {
-        btn.setAttribute("aria-expanded", false)
-    } else {
-        btn.setAttribute("aria-expanded", true);
+    const canvas = document.getElementById("canvas1");
+    const ctx = canvas.getContext("2d");
+    canvas.height = 500;
+    canvas.width = 500;
+
+    class Game {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
+            this.player = new Player(this);
+            this.input = new InputHandler()
+            this.pole = new Pole(this)
+        }
+
+        update() {
+            this.player.update(this.input.keys);
+            this.pole.update(this.input.keys);
+        }
+        draw(ctx) {
+            this.player.draw(ctx);
+            this.pole.draw(ctx)
+        }
     }
-    primaryNav.toggleAttribute("data-visible")
-}))
 
+    const game = new Game(canvas.width, canvas.height)
+    console.log(game);
 
-const categoryItems = document.querySelectorAll('.category-item')
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        game.draw(ctx);
+        game.update()
 
-
-
-const app = document.querySelector(".app")
-
-const loadPage = async (page) => {
-    const res = await fetch(page)
-    const data = await res.text()
-    // console.log(res);
-
-    app.innerHTML = data
-    // console.log(data);
-
-    Array.from(document.querySelectorAll(".table-box")).forEach((table) => {
-        table.addEventListener("click", () => {
-            loadPage("order/order.htm")
-
-        })
-    })
-
-    // // document.querySelector(".to-home").addEventListener("click", ()=>{
-    // //     console.log(654);
-
-    // // })
-}
-
-loadPage("home/home.htm")
-// loadPage("order/order.htm")
-
-app.addEventListener("click", (e) => {
-    console.log("e.target", e.target.innerHTML);
-    if (e.target.innerHTML == "Save") {
-
-        loadPage("home/home.htm")
+        requestAnimationFrame(animate);
     }
+
+    animate();
+
 })
