@@ -1,3 +1,4 @@
+import { Background } from "./background";
 import InputHandler from "./input";
 import Player from "./player";
 import Pole from "./poles";
@@ -13,16 +14,20 @@ window.addEventListener("load", () => {
         constructor(width, height) {
             this.width = width;
             this.height = height;
+            this.speed = 3;
             this.player = new Player(this);
             this.input = new InputHandler()
+            this.background = new Background(this)
             this.pole = new Pole(this, 600, 480)
         }
 
         update(deltaTime) {
             this.player.update(this.input.keys, deltaTime);
+            this.background.update()
             this.pole.update(this.input.keys);
         }
         draw(ctx) {
+            this.background.draw(ctx)
             this.player.draw(ctx);
             this.pole.draw(ctx)
         }

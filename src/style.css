@@ -83,6 +83,6 @@ main{
   max-height: 98vh;
 }
 
-.player, #pole, #poleRotated{
+.player, #pole, #poleRotated, #layer1, #layer3{
   display: none;
 }

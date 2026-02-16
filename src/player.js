@@ -14,7 +14,7 @@ class Player {
         this.jump = -15;
         this.vy = 0;
         this.weight = 1;
-        this.speed = 3;
+        this.speed = game.speed;
         this.maxSpeed = 10;
 
         this.image = Array.from(document.querySelectorAll(".player"));

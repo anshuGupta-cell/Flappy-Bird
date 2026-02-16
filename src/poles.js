@@ -3,13 +3,13 @@ class Pole {
 
         this.height = 603
         this.width = 101
-        this.speed = 3  ;
+        this.speed = game.speed;
         this.gap = 200;
 
         this.position = {
-            x: x,  
+            x: x,
             ybottom: ybottom,   // 140 to 480
-            ytop: ybottom - this.height - this.gap,  
+            ytop: ybottom - this.height - this.gap,
         }
 
         this.image = pole
@@ -23,7 +23,7 @@ class Pole {
     }
     update(input) {
 
-     this.position.x -= this.speed;
+        this.position.x -= this.speed;
     }
 
 }
