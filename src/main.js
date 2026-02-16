@@ -15,28 +15,45 @@ window.addEventListener("load", () => {
             this.height = height;
             this.player = new Player(this);
             this.input = new InputHandler()
-            this.pole = new Pole(this)
+            this.pole = new Pole(this, 600, 480)
         }
 
-        update() {
-            this.player.update(this.input.keys);
+        update(deltaTime) {
+            this.player.update(this.input.keys, deltaTime);
             this.pole.update(this.input.keys);
         }
         draw(ctx) {
             this.player.draw(ctx);
             this.pole.draw(ctx)
         }
+
+        drawPole() {
+            this.pole.position
+        }
+
     }
 
     const game = new Game(canvas.width, canvas.height)
-    console.log(game);
 
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        game.draw(ctx);
-        game.update()
+    const fps = 60;
+    const interval = 1000 / fps;
+    let lastTime = 0;
 
+    function animate(timeStamp) {
+
+        if (timeStamp - lastTime >= interval) {
+            const deltaTime = timeStamp - lastTime; 
+            lastTime = timeStamp
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+            // setInterval(()=>{
+            game.draw(ctx);
+            game.update(deltaTime)
+            // }, 10)
+
+        }
         requestAnimationFrame(animate);
+
     }
 
     animate();

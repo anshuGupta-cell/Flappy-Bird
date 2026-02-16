@@ -1,27 +1,29 @@
 class Pole {
-    constructor(game) {
+    constructor(game, x, ybottom) {
 
         this.height = 603
         this.width = 101
-        this.speed = 2;
+        this.speed = 3  ;
+        this.gap = 200;
+
         this.position = {
-            x: 400,
-            y: 400,// 100 to game.height - 15 bottom
-            yt: 15 - this.height
+            x: x,  
+            ybottom: ybottom,   // 140 to 480
+            ytop: ybottom - this.height - this.gap,  
         }
 
         this.image = pole
+        this.imageRotated = poleRotated
 
     }
 
     draw(ctx) {
-        ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
-        ctx.drawImage(this.image, this.position.x, this.position.yt, this.width, this.height)
+        ctx.drawImage(this.image, this.position.x, this.position.ybottom, this.width, this.height)
+        ctx.drawImage(this.imageRotated, this.position.x, this.position.ytop, this.width, this.height)
     }
     update(input) {
 
      this.position.x -= this.speed;
-
     }
 
 }
