@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+
+  /* color-scheme: light dark; */
+
+  --clr-accent-500: hsl(156, 60%, 45%);
+  --clr-accent-400: hsl(156 62 40);
+  --clr-accent-300: hsl(156, 62%, 65%);
+  --clr-accent-200: hsl(156, 62%, 80%);
+  --clr-accent-100: hsl(156, 62%, 96%);
+
+  --clr-primary-200: hsl(228, 25%, 13%);
+  --clr-primary-400: hsl(228, 39%, 23%);
+
+  --clr-neutral-900: hsl(232, 12%, 13%);
+  --clr-neutral-700: hsl(232, 12%, 30%);
+  --clr-neutral-600: hsl(232, 12%, 40%);
+  --clr-neutral-300: hsl(232 12% 60%);
+  --clr-neutral-200: hsl(232 12% 80%);
+  --clr-neutral-150: hsl(232 12% 90%);
+  --clr-neutral-100: hsl(0 0% 100%);
+
+  --ff-primary: sans-serif;
+  --ff-body: var(--ff-primary);
+  --ff-heading: var(--ff-primary);
+
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
+  --fw-bold: 700;
+
+  --fs-300: .8125rem;
+  --fs-400: .875rem;
+  --fs-500: 1rem;
+  --fs-600: 1.875rem;
+  --fs-700: 2.5rem;
+
+  --fs-body: var(--fs-400);
+  --fs-nav: var(--fs-500);
+  --fs-primary-heading: var(--fs-500);
+  --fs-secondary-heading: var(--fs-400);
+  --fs-button: var(--fs-300);
+
+  --size-100: .25rem;
+  --size-200: .5rem;
+  --size-300: .75rem;
+  --size-400: 1rem;
+  --size-500: 1.5rem;
+  --size-600: 2rem;
+  --size-700: 3rem;
+  --size-800: 4rem;
+  --size-900: 5rem;
+
+
+
+
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #222533;
+  --text-clr: hsla(222, 47%, 11%, 0.8);
+  --accent-clr: #5e63ff;
+  --secondary-text-clr: #b0b3c1;
+  --bg-clr: #f1f5f9;
+}
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+
+.res-grid-200 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.res-grid-240 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.res-grid-280 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.abc{
+  background: hotpink;
+}
+
+
+.sidebar ul li.active a {
+  color: var(--accent-clr);
+
+  svg {
+    fill: var(--accent-clr);
+  }
+}
+
+.sidebar a,
+.sidebar .dropdown-btn,
+.sidebar .logo {
+  border-radius: .5em;
+  padding: .85em;
+  text-decoration: none;
+  color: var(--text-clr);
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.dropdown-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sidebar svg {
+  flex-shrink: 0;
+  fill: var(--text-clr);
+}
+
+.sidebar a span,
+.sidebar .dropdown-btn span {
+  flex-grow: 1;
+}
+
+.sidebar a:hover,
+.sidebar .dropdown-btn:hover {
+  background-color: var(--secondary-text-clr);
+}
+
+.sidebar .sub-menu {
+  border-radius: .5em;
+  margin: auto;
+  background: var(--bg-clr);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 300ms ease-in-out;
+
+  div {
+    overflow: hidden;
+  }
+}
+
+.sidebar .sub-menu.show {
+  grid-template-rows: 1fr;
+}
+
+.dropdown-btn svg {
+  transition: 200ms ease;
+}
+
+.rotate svg:last-child {
+  rotate: 180deg;
+}
+
+.sidebar .sub-menu a {
+  padding-left: 2em;
+}
+
+@media (min-width: 768px) {
+  .sidebar .sub-menu {
+    position: absolute;
+  }
+}
+
+.close{
+  transform: translateX(-10.8rem);
+}
+
+
+
+
+
+/* button  */
+.button {
+  background: var(--clr-accent-400);
+  color: var(--clr-neutral-100);
+  text-decoration: none;
+  padding: .75em 1.25em;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  line-height: 1;
+  box-shadow: 0 1em 1em -1em var(--clr-accent-500);
+  transition: 100ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+}
+
+.button[data-type="primary-200"] {
+  background: var(--clr-primary-200);
+}
+
+.button[data-type="inverted"] {
+  border: 1px solid var(--clr-neutral-900);
+  background: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--clr-accent-300);
+  transform: scale(.9);
+
+}
+
+.button[data-type="primary-200"]:hover,
+.button[data-type="primary-200"]:focus-visible {
+  background: var(--clr-primary-400);
+}
+
+.button[data-type="inverted"]:hover,
+.button[data-type="inverted"]:focus-visible {
+  background: var(--clr-neutral-100);
+}
