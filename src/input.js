@@ -1,5 +1,6 @@
 class InputHandler {
-    constructor() {
+    constructor(game) {
+        this.game = game
         this.keys = [];
         
         window.addEventListener("keydown", e => {
@@ -8,7 +9,7 @@ class InputHandler {
                 e.code === 'Enter'
             ) && this.keys.indexOf(e.code) === -1) {
                 this.keys.push(e.code);
-            }
+            } else if(e.code === 'KeyD') this.game.debug = !this.game.debug;
         })
 
         window.addEventListener("keyup", e => {

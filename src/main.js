@@ -1,7 +1,7 @@
 import { Background } from "./background";
 import InputHandler from "./input";
+import { Pole } from "./obstacle";
 import Player from "./player";
-import Pole from "./poles";
 
 window.addEventListener("load", () => {
 
@@ -15,25 +15,49 @@ window.addEventListener("load", () => {
             this.width = width;
             this.height = height;
             this.speed = 3;
+            this.debug = true
             this.player = new Player(this);
-            this.input = new InputHandler()
+            this.input = new InputHandler(this)
             this.background = new Background(this)
-            this.pole = new Pole(this, 600, 480)
+            this.obstacles = []  // enemy is obstacle
+            this.obstacleTimer = 0
+            this.obstacleInterval = 2000
         }
 
         update(deltaTime) {
             this.player.update(this.input.keys, deltaTime);
             this.background.update()
-            this.pole.update(this.input.keys);
+
+            //handle Obstacle/enemy
+            if (this.obstacleTimer > this.obstacleInterval) {
+                this.addEnemy()
+                this.obstacleTimer = 0;
+            } else {
+                this.obstacleTimer += deltaTime
+            }
+            this.obstacles.forEach((obstacle) => {
+                obstacle.update(deltaTime);
+                if (obstacle.markedForDeletion){
+                    this.obstacles.splice(this.obstacles.indexOf(obstacle), 1)
+                }
+            })
+
         }
         draw(ctx) {
             this.background.draw(ctx)
             this.player.draw(ctx);
-            this.pole.draw(ctx)
+
+            this.obstacles.forEach((obstacle) => {
+                obstacle.draw(ctx);
+            })
         }
 
-        drawPole() {
-            this.pole.position
+        addEnemy() {
+            this.obstacles.push(new Pole(this))
+
+        }
+        removeObstacle() {
+
         }
 
     }
@@ -47,7 +71,7 @@ window.addEventListener("load", () => {
     function animate(timeStamp) {
 
         if (timeStamp - lastTime >= interval) {
-            const deltaTime = timeStamp - lastTime; 
+            const deltaTime = timeStamp - lastTime;
             lastTime = timeStamp
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 

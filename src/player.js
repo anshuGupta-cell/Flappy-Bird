@@ -10,7 +10,7 @@ class Player {
             x: 0,
             y: game.height / 2 - this.height / 2
         }
-        this.gravity = 4
+        this.gravity = 6
         this.jump = -15;
         this.vy = 0;
         this.weight = 1;
@@ -67,6 +67,9 @@ class Player {
     }
 
     draw(ctx) {
+        if (this.game.debug) {
+            ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
+        }
         ctx.drawImage(this.image[this.i], this.position.x, this.position.y, this.width, this.height);
 
 
@@ -76,7 +79,11 @@ class Player {
         this.currentState.enter()
     }
 
-
+    checkCollision(){
+        this.game.obstacles.forEach(obstacle => {
+            
+        });
+    }
 }
 
 export default Player;
