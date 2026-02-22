@@ -29,7 +29,7 @@ export class Background {
         this.layer3Image = layer3 
         this.layer1 = new Layer(this.game, this.width, this.height, 0, this.layer1Image)
         this.layer3 = new Layer(this.game, this.width, this.height, 0.4, this.layer3Image)
-        this.backgroundLayers = [this.layer1, this.layer3]
+        this.backgroundLayers = [this.layer1, this.layer3,]
     }
     update() {
         this.backgroundLayers.forEach((layer) => {

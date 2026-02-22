@@ -20,7 +20,7 @@ class Obstacle {
         ctx.drawImage(this.imageRotated, this.position.x, this.position.ytop, this.width, this.height)
 
     }
-    
+
 
 }
 
@@ -30,8 +30,9 @@ export class Pole extends Obstacle {
         this.game = game
         this.width = 101
         this.height = 603
+        this.passed = false
         this.gap = 180
-        this.ybottom = Math.random() * 340 + 140
+        this.ybottom = Math.random() * 280+ this.gap
         this.position = {
             x: this.game.width,
             ybottom: this.ybottom,

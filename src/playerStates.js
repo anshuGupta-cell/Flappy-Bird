@@ -1,6 +1,8 @@
 const states = {
     FLYING: 0,
-    FALLING: 1
+    FALLING: 1,
+    HIT: 2,
+    DEAD: 3,
 }
 
 class States {
@@ -19,10 +21,10 @@ export class Flying extends States {
     }
     handleInput(input) {
         if (input.includes('Space'))
-            this.player.position.y += (-10) ;
+            this.player.position.y += (-10);
 
         // if (!input.includes('Space')) {
-            this.player.setState(states.FALLING)
+        this.player.setState(states.FALLING)
         // } 
     }
 }
@@ -37,6 +39,21 @@ export class Falling extends States {
     handleInput(input) {
         if (input.includes('Space')) {
             this.player.setState(states.FLYING)
+        }
+    }
+}
+
+export class Hit extends States {
+    constructor(game) {
+        super("HIT", game)
+
+    }
+    enter(){
+
+    }
+    handleInput(input){
+        if(1){
+
         }
     }
 }

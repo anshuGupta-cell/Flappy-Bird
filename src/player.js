@@ -1,4 +1,4 @@
-import { Falling, Flying } from "./playerStates";
+import { Falling, Flying, Hit } from "./playerStates";
 
 
 class Player {
@@ -11,7 +11,7 @@ class Player {
             y: game.height / 2 - this.height / 2
         }
         this.gravity = 6
-        this.jump = -15;
+        this.jump = -13;
         this.vy = 0;
         this.weight = 1;
         this.speed = game.speed;
@@ -25,14 +25,14 @@ class Player {
         // console.log(this.image);
 
 
-        this.states = [new Flying(this), new Falling(this)]
+        this.states = [new Flying(this), new Falling(this), new Hit(this.game)]
         this.currentState = this.states[0]
         this.currentState.enter()
     }
 
     update(input, deltaTime) {
         this.currentState.handleInput(input)
-
+        this.checkCollision()
         if (input.includes('Space'))
             this.position.y += this.jump;
 
@@ -76,14 +76,41 @@ class Player {
     }
     setState(state) {
         this.currentState = this.states[state]
+        console.log(this.currentState);
+        
         this.currentState.enter()
     }
 
-    checkCollision(){
-        this.game.obstacles.forEach(obstacle => {
-            
-        });
-    }
+    checkCollision() {
+    this.game.obstacles.forEach(obstacle => {
+
+        if (
+            obstacle.position.x < this.position.x + this.width - 10 &&
+            obstacle.position.x + obstacle.width > this.position.x + 10
+        ) {
+            if (
+                obstacle.position.ybottom < this.position.y + this.height - 10 ||
+                obstacle.position.ytop + obstacle.height > this.position.y + 10
+            ) {
+
+                this.setState(2)
+                this.game.gameOver = true
+                console.log(this.game.gameOver)
+                console.log("death collision");
+            } 
+        }
+
+        // ⭐ Score only once when obstacle passes player
+        if (!obstacle.passed && obstacle.position.x + obstacle.width < this.position.x) {
+            if (this.currentState == this.states[0] || this.currentState == this.states[1]  ) {
+                this.game.score += 1;
+                obstacle.passed = true;
+                console.log(this.game.score);
+            }
+        }
+
+    });
+}
 }
 
 export default Player;

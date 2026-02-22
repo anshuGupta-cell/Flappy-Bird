@@ -2,26 +2,31 @@ import { Background } from "./background";
 import InputHandler from "./input";
 import { Pole } from "./obstacle";
 import Player from "./player";
+import { UI } from "./ui";
 
 window.addEventListener("load", () => {
 
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
     canvas.height = 500;
-    canvas.width = 500;
+    canvas.width = window.innerWidth;
 
     class Game {
         constructor(width, height) {
             this.width = width;
             this.height = height;
+            this.fontColor = 'black'
             this.speed = 3;
-            this.debug = true
+            this.debug = false
+            this.score = 0
             this.player = new Player(this);
             this.input = new InputHandler(this)
             this.background = new Background(this)
             this.obstacles = []  // enemy is obstacle
             this.obstacleTimer = 0
             this.obstacleInterval = 2000
+            this.ui = new UI(this)
+            this.gameOver = false
         }
 
         update(deltaTime) {
@@ -37,7 +42,7 @@ window.addEventListener("load", () => {
             }
             this.obstacles.forEach((obstacle) => {
                 obstacle.update(deltaTime);
-                if (obstacle.markedForDeletion){
+                if (obstacle.markedForDeletion) {
                     this.obstacles.splice(this.obstacles.indexOf(obstacle), 1)
                 }
             })
@@ -50,6 +55,7 @@ window.addEventListener("load", () => {
             this.obstacles.forEach((obstacle) => {
                 obstacle.draw(ctx);
             })
+            this.ui.draw(ctx)
         }
 
         addEnemy() {
@@ -81,7 +87,12 @@ window.addEventListener("load", () => {
             // }, 10)
 
         }
-        requestAnimationFrame(animate);
+
+        if (!game.gameOver) {
+            requestAnimationFrame(animate);
+        }
+        game.draw(ctx);
+
 
     }
 
