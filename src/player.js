@@ -1,4 +1,4 @@
-import { Falling, Flying, Hit } from "./playerStates";
+import { Falling, Flying, Hit } from "./playerStates.js";
 
 
 class Player {

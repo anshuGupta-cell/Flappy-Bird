@@ -1,8 +1,8 @@
-import { Background } from "./background";
-import InputHandler from "./input";
-import { Pole } from "./obstacle";
-import Player from "./player";
-import { UI } from "./ui";
+import { Background } from "./background.js";
+import InputHandler from "./input.js";
+import { Pole } from "./obstacle.js";
+import Player from "./player.js";
+import { UI } from "./ui.js";
 
 window.addEventListener("load", () => {
 
