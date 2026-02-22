@@ -14,14 +14,18 @@ export class UI {
         ctx.font = this.fontSize + 'px ' + this.fontFamily
         ctx.textAlign = 'left'
         ctx.fillStyle = this.game.fontColor
-
         ctx.fillText('Score: ' + this.game.score, 20, 50)
-console.log(this.game.gameOver     );
 
         if (this.game.gameOver) {
             ctx.textAlign = 'center'
             ctx.font = this.fontSize * 2 + 'px ' + this.fontFamily
 
+            if (this.game.score === 0) {
+
+                ctx.fillText('Boo-Boo', this.game.width * 0.5, this.game.height * 0.5 - 20)
+                ctx.font = this.fontSize * 0.7 + 'px ' + this.fontFamily
+                ctx.fillText('Who is the biggest piece of dog shit? YOU!!!', this.game.width * 0.5, this.game.height * 0.5 + 20)
+            }
             if (this.game.score > 50) {
 
                 ctx.fillText('Boo-yah', this.game.width * 0.5, this.game.height * 0.5 - 20)

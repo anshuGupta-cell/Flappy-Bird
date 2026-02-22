@@ -68,7 +68,7 @@ class Player {
 
     draw(ctx) {
         if (this.game.debug) {
-            ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
+            ctx.strokeRect(this.position.x +20, this.position.y + 10, this.width - 40, this.height - 20)
         }
         ctx.drawImage(this.image[this.i], this.position.x, this.position.y, this.width, this.height);
 
@@ -77,40 +77,52 @@ class Player {
     setState(state) {
         this.currentState = this.states[state]
         console.log(this.currentState);
-        
+
         this.currentState.enter()
     }
 
     checkCollision() {
-    this.game.obstacles.forEach(obstacle => {
-
-        if (
-            obstacle.position.x < this.position.x + this.width - 10 &&
-            obstacle.position.x + obstacle.width > this.position.x + 10
+        // fall death OR Out of the sky
+        if (this.game.height < this.position.y ||
+            this.position.y + this.height < 0
         ) {
+            this.game.gameOver = true
+            this.setState(2)
+        }
+        console.log(this.game.height);
+
+        this.game.obstacles.forEach(obstacle => {
+            
+
+            // pole collision death
             if (
-                obstacle.position.ybottom < this.position.y + this.height - 10 ||
-                obstacle.position.ytop + obstacle.height > this.position.y + 10
+                obstacle.position.x < this.position.x + this.width - 20 &&
+                obstacle.position.x + obstacle.width > this.position.x + 20
             ) {
+                if (
+                    obstacle.position.ybottom < this.position.y + this.height - 10 ||
+                    obstacle.position.ytop + obstacle.height > this.position.y + 10
+                ) {
 
-                this.setState(2)
-                this.game.gameOver = true
-                console.log(this.game.gameOver)
-                console.log("death collision");
-            } 
-        }
-
-        // ⭐ Score only once when obstacle passes player
-        if (!obstacle.passed && obstacle.position.x + obstacle.width < this.position.x) {
-            if (this.currentState == this.states[0] || this.currentState == this.states[1]  ) {
-                this.game.score += 1;
-                obstacle.passed = true;
-                console.log(this.game.score);
+                    this.setState(2)
+                    this.game.gameOver = true
+                    console.log(this.game.gameOver)
+                    console.log("death collision");
+                }
+    
             }
-        }
 
-    });
-}
+            // ⭐ Score only once when obstacle passes player
+            if (!obstacle.passed && obstacle.position.x + obstacle.width < this.position.x) {
+                if (this.currentState == this.states[0] || this.currentState == this.states[1]) {
+                    this.game.score += 1;
+                    obstacle.passed = true;
+                    console.log(this.game.score);
+                }
+            }
+
+        });
+    }
 }
 
 export default Player;
