@@ -21,6 +21,20 @@ class InputHandler {
             }
         })
 
+        // for mobile
+        window.addEventListener("touchstart", (e)=>{
+            e.preventDefault()
+            if (this.keys.indexOf('Space') === -1) {
+                this.keys.push('Space');
+            }
+        })
+
+        window.addEventListener("touchend", e => {
+
+                this.keys.splice(this.keys.indexOf('Space'), 1);
+        })
+
+
     }
 }
 
